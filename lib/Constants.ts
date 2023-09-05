@@ -1,6 +1,7 @@
 /** Key value should be the same here */
 export enum Integration {
   reactNative = 'reactNative',
+  capacitor = 'capacitor',
   cordova = 'cordova',
   electron = 'electron',
   nextjs = 'nextjs',
@@ -39,6 +40,8 @@ export function getIntegrationDescription(type: string): string {
       return 'Electron';
     case Integration.nextjs:
       return 'Next.js';
+    case Integration.capacitor:
+      return 'Capacitor';
     default:
       return 'React Native';
   }

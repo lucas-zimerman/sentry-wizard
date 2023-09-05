@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 
 import { getIntegrationChoices, Integration } from '../Constants';
 import { BaseStep } from './BaseStep';
+import { Capacitor } from './Integrations/Capacitor';
 import { Cordova } from './Integrations/Cordova';
 import { Electron } from './Integrations/Electron';
 import { NextJs } from './Integrations/NextJs';
@@ -44,6 +45,9 @@ export class ChooseIntegration extends BaseStep {
       case Integration.reactNative:
         integration = new ReactNative(this._argv);
         break;
+      case Integration.capacitor:
+        integration = new Capacitor(this._argv);
+        break;
       case Integration.cordova:
         integration = new Cordova(this._argv);
         break;
@@ -64,6 +68,9 @@ export class ChooseIntegration extends BaseStep {
   public tryDetectingIntegration(): Integration | undefined {
     if (_.has(projectPackage, 'dependencies.react-native')) {
       return Integration.reactNative;
+    }
+    if (_.has(projectPackage, 'dependencies.@capacitor/core')) {
+      return Integration.capacitor;
     }
     if (_.has(projectPackage, 'dependencies.cordova')) {
       return Integration.cordova;
